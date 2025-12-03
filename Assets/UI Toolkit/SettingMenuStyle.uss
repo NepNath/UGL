@@ -1,0 +1,21 @@
+.header {
+    font-size: 40px;
+    -unity-text-align: upper-center;
+}
+
+.button {
+    width: 150px;
+    height: 40px;
+    font-size: 25px;
+}
+
+.button:hover {
+    scale: 1.1 1.1;
+    background-color: rgb(255, 0, 0);
+    rotate: 0;
+}
+
+.dropdown {
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}

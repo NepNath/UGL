@@ -1,0 +1,14 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/SettingMenuStyle.uss?fileID=7433441132597879392&amp;guid=084808e16a6cf6842bf85e8cff0732d0&amp;type=3#SettingMenuStyle" />
+    <ui:VisualElement name="Setting" style="flex-grow: 1; justify-content: space-evenly;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; top: 0; left: 0; bottom: 0; right: 0; opacity: 0.4; background-color: rgb(0, 0, 0);" />
+        <ui:Label text="Settings" emoji-fallback-support="true" class="header" />
+        <ui:VisualElement name="Setting" style="flex-grow: 1;">
+            <ui:DropdownField label="DisplayResolution" name="DisplayResolution" class="dropdown" />
+        </ui:VisualElement>
+        <ui:VisualElement name="GrpButton" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: flex-end; padding-bottom: 0; margin-bottom: 20px; padding-top: 0; margin-top: auto;">
+            <ui:Button text="Cancel" name="CancelButton" class="button" style="margin-right: 8px;" />
+            <ui:Button text="Aply" name="AplyButton" class="button" style="margin-left: 8px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

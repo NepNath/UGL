@@ -1,0 +1,21 @@
+.header {
+    font-size: 200px;
+    -unity-text-outline-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    align-self: center;
+}
+
+.button {
+    width: 300px;
+    height: 100px;
+    font-size: 50px;
+    align-self: center;
+    transition-duration: 0.35s;
+}
+
+.button:hover {
+    scale: 1.1 1.1;
+    background-color: rgb(255, 0, 0);
+    rotate: 0;
+}
