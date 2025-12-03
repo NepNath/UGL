@@ -14,6 +14,7 @@ public class SettingMenuEvent : MonoBehaviour
     private Button _Aply;
 
     private DropdownField _DisplayResolution;
+    private DropdownField _DisplayQuality;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +27,8 @@ public class SettingMenuEvent : MonoBehaviour
         _Aply = _document.rootVisualElement.Q("AplyButton") as Button;
         _Aply.RegisterCallback<ClickEvent>(OnAplyClick);
 
-        InitDisplyResolution();
+        InitDisplayResolution();
+        InitDisplayQuality();
     }
 
     // Update is called once per frame
@@ -47,10 +49,11 @@ public class SettingMenuEvent : MonoBehaviour
         Debug.Log("Aply");
         var resolutiong = Screen.resolutions[_DisplayResolution.index];
         Screen.SetResolution(resolutiong.width, resolutiong.height, true);
+        QualitySettings.SetQualityLevel(_DisplayQuality.index, true);
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    private void InitDisplyResolution()
+    private void InitDisplayResolution()
     {
         _DisplayResolution = _document.rootVisualElement.Q<DropdownField>("DisplayResolution");
         _DisplayResolution.choices = Screen.resolutions.Select(Resolution => $"{Resolution.width}*{Resolution.height}").ToList();
@@ -59,4 +62,12 @@ public class SettingMenuEvent : MonoBehaviour
             .First((value) => value.Resolution.width == Screen.currentResolution.width && value.Resolution.height == Screen.currentResolution.height)
             .index;
     }
+
+    private void InitDisplayQuality()
+    {
+        _DisplayQuality = _document.rootVisualElement.Q<DropdownField>("DisplayQuality");
+        _DisplayQuality.choices = QualitySettings.names.ToList();
+        _DisplayQuality.index = QualitySettings.GetQualityLevel();
+    }
+
 }

@@ -5,6 +5,7 @@
         <ui:Label text="Settings" emoji-fallback-support="true" class="header" />
         <ui:VisualElement name="Setting" style="flex-grow: 1;">
             <ui:DropdownField label="DisplayResolution" name="DisplayResolution" class="dropdown" />
+            <ui:DropdownField label="DisplayQuality" name="Quality" class="dropdown" />
         </ui:VisualElement>
         <ui:VisualElement name="GrpButton" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: flex-end; padding-bottom: 0; margin-bottom: 20px; padding-top: 0; margin-top: auto;">
             <ui:Button text="Cancel" name="CancelButton" class="button" style="margin-right: 8px;" />
