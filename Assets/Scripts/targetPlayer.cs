@@ -9,19 +9,19 @@ public class targetPlayer : MonoBehaviour
     public NavMeshAgent agent;
     void Start()
     {
-        player = getClosestPlayer();
+        player = getClosestPlayer(70.0f);
     }
 
     void Update()
     {
-        player = getClosestPlayer();
+        player = getClosestPlayer(70.0f);
         if (player != null)
         {
-            agent.SetDestination(Player.transform.position);
+            agent.SetDestination(player.transform.position);
         }
     }
 
-    public GameObject getClosestPlayer()
+    public GameObject getClosestPlayer(float aggroRange)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag(playerTag);
         GameObject nearest = null;
@@ -38,7 +38,7 @@ public class targetPlayer : MonoBehaviour
                 nearest = player;
             }
         }
-        if (Vector3.Distance(currentPos, nearest.transform.position) < 30f)
+        if (Vector3.Distance(currentPos, nearest.transform.position) < aggroRange)
         {
             return nearest;
         }

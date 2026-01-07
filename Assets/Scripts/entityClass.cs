@@ -1,37 +1,50 @@
 using UnityEngine;
 
-public abstract class entityClass : MonoBehaviour
+public abstract class entityClass: MonoBehaviour
 {
-    float health;
-    float maxHealth;
-    float attackPower;
-    float speed;
-    float attackRange;
+    [SerializeField] protected float health;
+    [SerializeField] protected float maxHealth;
+    [SerializeField] protected float attackPower;
+    [SerializeField] protected float speed;
+    [SerializeField] protected float attackRange;
     /*float def;*/
-    public abstract void getDamaged(int amount){
-        if (isFullyHealed() == true){
-            amount = 0;
-            health -= amount;
-        }
-        if ((health -= amount ) > maxHealth){
-            health = maxHealth;
-        }
-        else{
-            health -= amount;
-            }
+
+    public virtual void GetDamaged(float amount)
+    {
+        if (amount <= 0f) return;
+
+        health -= amount;
+
+        if (health < 0f)
+            health = 0f;
     }
-    public abstract void dealDamaged(entityClass target){
+
+    public virtual void getDamaged(float amount)
+    {
+        GetDamaged(amount);
+    }
+
+    public virtual void Heal(float amount)
+    {
+        if (amount <= 0f) return;
+
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
+    }
+    public virtual void dealDamaged(entityClass target){
         target.getDamaged(attackPower);
     }
-    public abstract bool isDead(){
+    public virtual bool isDead(){
         return health <= 0;
     }
 
-    public abstract bool healFullHealth(){
+    public virtual bool healFullHealth(){
         health = maxHealth;
         return true;
     }
-    public abstract bool isFullyHealed(){
+    public virtual bool isFullyHealed(){
         return health == maxHealth;
     }
+
 }

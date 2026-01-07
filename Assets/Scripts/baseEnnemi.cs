@@ -1,14 +1,21 @@
 using UnityEngine;
 public class baseEnnemi : entityClass
 {
-    float aggroRange = 70f;
-    bool isAggro = false;
-    bool isElite = false;
+    [SerializeField] protected float aggroRange = 70f;
+    [SerializeField] protected bool isAggro = false;
+    [SerializeField] protected bool isElite = false;
+    [SerializeField] protected bool useProjectile = false;
+    [SerializeField] protected bool isInRange = false;
+    [SerializeField] protected float projectileSpeed = 20f;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private float currentCooldown = 0f;
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPoint;
     
     public void setEliteStatus(bool status)
     {
 
-        if (random.NextDouble() < 0.01)
+        if (Random.value <= 0.01f)
         {
             isElite = true;
         }
@@ -25,8 +32,8 @@ public class baseEnnemi : entityClass
 
     public void aggroStatus()
     {
-        TargetPlayer targetPlayerScript = GetComponent<TargetPlayer>();
-        GameObject player = targetPlayerScript.GetClosestPlayer();
+        targetPlayer targetPlayerScript = GetComponent<targetPlayer>();
+        GameObject player = targetPlayerScript.getClosestPlayer(aggroRange);
 
         if (player != null)
         {
@@ -46,5 +53,71 @@ public class baseEnnemi : entityClass
         }
     }
 
+    public void attackCooldownTimer()
+    {
+        if (currentCooldown > 0)
+        {
+            currentCooldown -= Time.deltaTime;
+        }
 
+       
+        if (currentCooldown <= 0)
+        {
+            attackPlayer();
+            currentCooldown = attackCooldown;
+        }
+    }
+
+    public void attackPlayer()
+    {
+        if (!isAggro) return;
+
+        targetPlayer targetPlayerScript = GetComponent<targetPlayer>();
+        GameObject player = targetPlayerScript.getClosestPlayer(aggroRange);
+
+        if (player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= attackRange)
+            {
+                isInRange = true;
+                if (useProjectile)
+                {
+                    shootProjectile(player);
+                }
+                else
+                {
+                    entityClass playerEntity = player.GetComponent<entityClass>();
+                    if (playerEntity != null)
+                    {
+                        dealDamaged(playerEntity);
+                    }
+                }
+            }
+            else
+            {
+                isInRange = false;
+            }
+        }
+    }
+
+    public void shootProjectile(GameObject target)
+    {
+        if (projectilePrefab == null)
+        return;
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        projectile projScript = projectile.GetComponent<projectile>();
+        if (projScript != null)
+        {
+            projScript.Initialize(target.transform, attackPower);
+        }
+        
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = (target.transform.position - projectileSpawnPoint.position).normalized;
+            rb.linearVelocity = direction * projectileSpeed;
+        }
+    }
+    
 }

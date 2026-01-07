@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ombre : baseEnnemi
+public class planteTueuse : baseEnnemi
 {
     
     void Start()
@@ -9,8 +9,10 @@ public class ombre : baseEnnemi
         maxHealth = 100f;
         attackPower = 10f;
         speed = 3f;
-        attackRange = 40f;
+        attackRange = 60f;
         aggroRange = 95f;
+        useProjectile = true;
+        projectileSpeed = 25f;
         setEliteStatus(isElite);
     }
 
@@ -18,5 +20,6 @@ public class ombre : baseEnnemi
     void Update()
     {
         aggroStatus();
+        attackCooldownTimer();
     }
 }

@@ -18,5 +18,8 @@ public class chienCorrompu : baseEnnemi
     void Update()
     {
         aggroStatus();
+        attackCooldownTimer();
     }
+
+    
 }
