@@ -2,29 +2,35 @@ using UnityEngine;
 
 public abstract class entityClass: MonoBehaviour
 {
+
     protected float health;
     protected float maxHealth;
     protected float attackPower;
     protected float speed;
     protected float attackRange;
     /*float def;*/
-    public virtual void getDamaged(int amount){
+    public virtual void getDamaged(float amount)
+    {
+        if (amount <= 0f) return;
 
-        float healthLeft = health - amount;
-        if (isFullyHealed() == true){
-            amount = 0;
-            health -= amount;
-        }
-        if (healthLeft > maxHealth){
-            health = maxHealth;
-        }
-        else{
-            health -= amount;
-            }
+        health -= amount;
+        health = Mathf.Clamp(health, 0f, maxHealth);
     }
+
+    public virtual void heal(float amount)
+    {
+        if (amount <= 0f) return;
+
+        health += amount;
+        health = Mathf.Clamp(health, 0f, maxHealth);
+    }
+
+
     public virtual void dealDamaged(entityClass target){
         target.getDamaged(attackPower);
     }
+
+
     public virtual bool isDead(){
         return health <= 0;
     }
@@ -34,6 +40,8 @@ public abstract class entityClass: MonoBehaviour
         return true;
     }
     public virtual bool isFullyHealed(){
-        return health == maxHealth;
+        return healthleft == maxHealth;
     }
+    public abstract void move(Vector3 direction);
+
 }
