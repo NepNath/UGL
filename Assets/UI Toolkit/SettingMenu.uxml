@@ -9,7 +9,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="GrpButton" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: flex-end; padding-bottom: 0; margin-bottom: 20px; padding-top: 0; margin-top: auto;">
             <ui:Button text="Cancel" name="CancelButton" class="button" style="margin-right: 8px;" />
-            <ui:Button text="Aply" name="AplyButton" class="button" style="margin-left: 8px;" />
+            <ui:Button text="Apply" name="ApplyButton" class="button" style="margin-left: 8px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

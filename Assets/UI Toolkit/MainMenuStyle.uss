@@ -4,6 +4,7 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 5px;
     align-self: center;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/TradeWinds-Regular.ttf?fileID=12800000&guid=c9bffd6f8dfef89409654ecf79a18364&type=3#TradeWinds-Regular");
 }
 
 .button {
@@ -13,6 +14,7 @@
     align-self: center;
     transition-duration: 0.35s;
     background-image: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Textures/Gradient%20Vertical%20(Color).jpg?fileID=2800000&guid=03d0538de6e24c0f819bfc9ce084dfa9&type=3#Gradient Vertical (Color)");
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/TASAExplorer-VariableFont_wght.ttf?fileID=12800000&guid=3d6e82f35781b4e4f8e500fb6ffebee8&type=3#TASAExplorer-VariableFont_wght");
 }
 
 .button:hover {

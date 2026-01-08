@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
         if(Input.GetButtonDown("Inventory") && menuActivated)
         {
             Time.timeScale = 1f;
+            DeselectAllSlots();
             InventoryMenu.SetActive(false);
             menuActivated = false;
         }

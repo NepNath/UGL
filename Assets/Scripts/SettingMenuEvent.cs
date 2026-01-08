@@ -11,7 +11,7 @@ public class SettingMenuEvent : MonoBehaviour
     private UIDocument _document;
 
     private Button _Cancel;
-    private Button _Aply;
+    private Button _Apply;
 
     private DropdownField _DisplayResolution;
     private DropdownField _DisplayQuality;
@@ -24,8 +24,8 @@ public class SettingMenuEvent : MonoBehaviour
         _Cancel = _document.rootVisualElement.Q("CancelButton") as Button;
         _Cancel.RegisterCallback<ClickEvent>(OnCancelClick);
 
-        _Aply = _document.rootVisualElement.Q("AplyButton") as Button;
-        _Aply.RegisterCallback<ClickEvent>(OnAplyClick);
+        _Apply = _document.rootVisualElement.Q("ApplyButton") as Button;
+        _Apply.RegisterCallback<ClickEvent>(OnApplyClick);
 
         InitDisplayResolution();
         InitDisplayQuality();
@@ -44,12 +44,13 @@ public class SettingMenuEvent : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    private void OnAplyClick(ClickEvent evt)
+    private void OnApplyClick(ClickEvent evt)
     {
-        Debug.Log("Aply");
-        var resolutiong = Screen.resolutions[_DisplayResolution.index];
-        Screen.SetResolution(resolutiong.width, resolutiong.height, true);
+        Debug.Log("Apply");
+        var resolution = Screen.resolutions[_DisplayResolution.index];
+        Screen.SetResolution(resolution.width, resolution.height, true);
         QualitySettings.SetQualityLevel(_DisplayQuality.index, true);
+        gameObject.SetActive(false);    
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -65,7 +66,7 @@ public class SettingMenuEvent : MonoBehaviour
 
     private void InitDisplayQuality()
     {
-        _DisplayQuality = _document.rootVisualElement.Q<DropdownField>("DisplayQuality");
+        _DisplayQuality = _document.rootVisualElement.Q<DropdownField>("Quality");
         _DisplayQuality.choices = QualitySettings.names.ToList();
         _DisplayQuality.index = QualitySettings.GetQualityLevel();
     }

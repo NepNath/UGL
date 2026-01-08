@@ -25,6 +25,14 @@ public class Item : MonoBehaviour
 
     private void AddItem()
     {
-        inventoryManager.AddItem(itemName, quantity, itemSprite, itemDescription);
+        int leftOverItems = inventoryManager.AddItem(itemName, quantity, itemSprite, itemDescription);
+        if (leftOverItems <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            quantity = leftOverItems;
+        }
     }
 }
