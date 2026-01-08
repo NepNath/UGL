@@ -1,12 +1,13 @@
 .header {
-    font-size: 40px;
+    font-size: 50px;
     -unity-text-align: upper-center;
 }
 
 .button {
-    width: 150px;
-    height: 40px;
-    font-size: 25px;
+    width: 200px;
+    height: 60px;
+    font-size: 30px;
+    background-image: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Textures/Gradient%20Vertical%20(Color).jpg?fileID=2800000&guid=03d0538de6e24c0f819bfc9ce084dfa9&type=3#Gradient Vertical (Color)");
 }
 
 .button:hover {
@@ -18,4 +19,5 @@
 .dropdown {
     color: rgb(255, 255, 255);
     font-size: 25px;
+    background-image: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Textures/Gradient%20Diagonal%20(Color).jpg?fileID=2800000&guid=2ce5c55e85304b819a1826ecbc839aa5&type=3#Gradient Diagonal (Color)");
 }
