@@ -7,14 +7,10 @@ public class playerClass : entityClass
     [SerializeField] private float accelerationMultiplier = 1.5f;
     [SerializeField] private float attackCooldown = 0f;
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float rotationSpeed = 10f;   // Vitesse de rotation du player
+    [SerializeField] private float rotationSpeed = 10f;   
 
     [Header("Player Inventory Slots")]
     [SerializeField] private bool slotWeapon;
-    [SerializeField] private bool slotHelmet;
-    [SerializeField] private bool slotBoots;
-    [SerializeField] private bool slotLeggings;
-    [SerializeField] private bool slotChestplate;
     [SerializeField] private bool slotAccessory;
 
     [Header("Attack Visual")]
@@ -26,21 +22,17 @@ public class playerClass : entityClass
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private GameObject projectilePrefab;
 
-    // Mouvement
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 currentVelocity = Vector3.zero;
 
-    // Matrice isométrique (45°)
     private static readonly Matrix4x4 isometricMatrix = Matrix4x4.Rotate(
         Quaternion.Euler(0, 45, 0)
-    ); // [web:48]
+    );
 
-    // Attaque
     private float lastAttackTime = 0f;
     private float arcTimer = 0f;
     private bool arcVisible = false;
 
-    // Respawn
     private Vector3 respawnPosition;
 
     private void Start()
@@ -94,7 +86,6 @@ public class playerClass : entityClass
 
         Vector3 rawInput = new Vector3(x, 0f, y);
 
-        // Conversion en direction isométrique (45°)
         moveDirection = isometricMatrix.MultiplyVector(rawInput);
 
         if (moveDirection.magnitude > 0.1f)
@@ -185,8 +176,7 @@ public class playerClass : entityClass
         {
             showAttackArc();
 
-            // AOE cac
-            Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, enemyLayer); // [web:32]
+            Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
 
             foreach (Collider hit in hits)
             {
@@ -240,29 +230,47 @@ public class playerClass : entityClass
 
     private void shootProjectile()
     {
-        if (projectilePrefab == null)
-            return;
-
-        Vector3 spawnPos = projectileSpawnPoint != null
-            ? projectileSpawnPoint.position
-            : transform.position + transform.forward * 1f;
-
-        // Direction = là où le player regarde
         Vector3 forward = transform.forward;
         forward.y = 0f;
         if (forward.sqrMagnitude < 0.001f)
             forward = Vector3.forward;
+        forward.Normalize();
 
-        Quaternion spawnRot = Quaternion.LookRotation(forward, Vector3.up); // [web:50]
+        Ray ray = new Ray(transform.position + Vector3.up * 0.5f, forward);
+        RaycastHit hit;
+        float maxDistance = 20f; 
 
-        GameObject proj = Instantiate(projectilePrefab, spawnPos, spawnRot);
-
-        Rigidbody rb = proj.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (Physics.Raycast(ray, out hit, maxDistance, enemyLayer))
         {
-            rb.linearVelocity = proj.transform.forward * projectileSpeed;
+            entityClass target = hit.collider.GetComponent<entityClass>();
+            if (target != null && !target.isDead())
+            {
+                dealDamaged(target); 
+            }
+        }
+
+        if (projectilePrefab != null)
+        {
+            Vector3 spawnPos = projectileSpawnPoint != null
+                ? projectileSpawnPoint.position
+                : transform.position + forward * 1f;
+
+            Quaternion spawnRot = Quaternion.LookRotation(forward, Vector3.up);
+
+            GameObject proj = Instantiate(projectilePrefab, spawnPos, spawnRot);
+
+            Rigidbody rb = proj.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.useGravity = false;
+                rb.linearVelocity = forward * projectileSpeed;
+            }
+
+            Destroy(proj, 0.5f); 
         }
     }
+
+
 
     private void checkEquipment()
     {
@@ -274,17 +282,6 @@ public class playerClass : entityClass
         attackPower = baseAttack;
         moveSpeed = baseSpeed;
 
-        if (isHelmetEquipped())
-            maxHealth += 40f;
-
-        if (isChestplateEquipped())
-            maxHealth += 200f;
-
-        if (isLeggingsEquipped())
-            maxHealth += 80f;
-
-        if (isBootsEquipped())
-            moveSpeed += 2f;
 
         if (isAccessoryEquipped())
             attackPower += 40f;
@@ -294,9 +291,5 @@ public class playerClass : entityClass
     }
 
     public bool isWeaponEquipped() => slotWeapon;
-    public bool isHelmetEquipped() => slotHelmet;
-    public bool isBootsEquipped() => slotBoots;
-    public bool isLeggingsEquipped() => slotLeggings;
-    public bool isChestplateEquipped() => slotChestplate;
     public bool isAccessoryEquipped() => slotAccessory;
 }
