@@ -7,12 +7,21 @@ public class IsometricController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float accelerationMultiplier = 1.5f;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+
     [Header("Références")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Rigidbody rb;
 
     private Vector3 currentVelocity = Vector3.zero;
     private Vector3 moveDirection = Vector3.zero;
+    private float dashTimer = 0f;
+    private float dashCooldownTimer = 0f;
+    private Vector3 dashDirection = Vector3.zero;
+    private bool isDashing = false;
 
     // Matrice isométrique pour transformer les inputs
     private static readonly Matrix4x4 isometricMatrix = Matrix4x4.Rotate(
@@ -26,20 +35,26 @@ public class IsometricController : MonoBehaviour
         if (mainCamera == null)
             mainCamera = Camera.main;
     }
+
     private void Update()
     {
         GatherInput();
-        HandleRotation();
+        HandleDash();
+        if (!isDashing)
+            HandleRotation();
     }
 
     private void FixedUpdate()
     {
-        ApplyMovement();
+        if (isDashing)
+            ApplyDash();
+        else
+            ApplyMovement();
     }
 
     private void GatherInput()
     {
-        // Récupérer l'input brut WASD
+        // Récupérer l'input brut zqsd
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -57,6 +72,36 @@ public class IsometricController : MonoBehaviour
         {
             moveDirection = Vector3.zero;
         }
+    }
+
+    private void HandleDash()
+    {
+        // Décrémenter le cooldown
+        if (dashCooldownTimer > 0f)
+            dashCooldownTimer -= Time.deltaTime;
+
+        // Détecter l'input de dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0f && moveDirection.magnitude > 0.1f)
+        {
+            dashDirection = moveDirection;
+            dashTimer = dashDuration;
+            dashCooldownTimer = dashCooldown;
+            isDashing = true;
+        }
+
+        // Gérer la fin du dash
+        if (isDashing && dashTimer <= 0f)
+        {
+            isDashing = false;
+        }
+
+        if (isDashing)
+            dashTimer -= Time.deltaTime;
+    }
+
+    private void ApplyDash()
+    {
+        rb.linearVelocity = dashDirection * dashSpeed;
     }
 
     private void HandleRotation()
@@ -95,7 +140,6 @@ public class IsometricController : MonoBehaviour
         );
     }
 
-    /// <summary>
     /// <summary>
     /// Méthode utilitaire pour transformer un vecteur en isométrique
     /// Utilisable : Vector3 input = IsometricController.ToIso(rawInput);

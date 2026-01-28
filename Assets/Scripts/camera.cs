@@ -15,29 +15,26 @@ public class IsometricCameraFollower : MonoBehaviour
     [SerializeField] private Vector3 boundsMax = new Vector3(50, 0, 50);
 
     private Vector3 targetPosition;
+    private Vector3 velocity = Vector3.zero; // ← NOUVEAU
 
     private void LateUpdate()
+{
+    if (playerTransform == null)
+        return;
+
+    // Calculer la position cible : joueur + offset fixe
+    targetPosition = playerTransform.position + cameraOffset;
+
+    // Appliquer les limites si activées
+    if (useBounds)
     {
-        if (playerTransform == null)
-            return;
-
-        // Calculer la position cible : joueur + offset fixe
-        targetPosition = playerTransform.position + cameraOffset;
-
-        // Appliquer les limites si activées
-        if (useBounds)
-        {
-            targetPosition.x = Mathf.Clamp(targetPosition.x, boundsMin.x, boundsMax.x);
-            targetPosition.z = Mathf.Clamp(targetPosition.z, boundsMin.z, boundsMax.z);
-        }
-
-        // Interpoler vers la position cible (smooth follow)
-        transform.position = Vector3.Lerp(
-            transform.position,
-            targetPosition,
-            smoothSpeed * Time.deltaTime
-        );
+        targetPosition.x = Mathf.Clamp(targetPosition.x, boundsMin.x, boundsMax.x);
+        targetPosition.z = Mathf.Clamp(targetPosition.z, boundsMin.z, boundsMax.z);
     }
+
+    // Suivi direct sans interpolation
+    transform.position = targetPosition;
+}
 
     private void OnDestroy()
     {
