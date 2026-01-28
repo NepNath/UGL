@@ -357,10 +357,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 413964790907158595, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1680425261539535668, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.66966
@@ -401,25 +397,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2939337531770054595, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979982025956209855, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6884937491942736136, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
       propertyPath: m_Name
       value: StartRoom
-      objectReference: {fileID: 0}
-    - target: {fileID: 7264924317070989017, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643893857060857076, guid: f06bf0afecf6a324ba9b388c5fb095ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
