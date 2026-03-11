@@ -2,13 +2,14 @@
     font-size: 50px;
     -unity-text-align: upper-center;
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/TASAExplorer-VariableFont_wght.ttf?fileID=12800000&guid=3d6e82f35781b4e4f8e500fb6ffebee8&type=3#TASAExplorer-VariableFont_wght");
+    color: rgb(255, 255, 255);
 }
 
 .button {
     width: 200px;
     height: 60px;
     font-size: 30px;
-    background-image: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Textures/Gradient%20Vertical%20(Color).jpg?fileID=2800000&guid=03d0538de6e24c0f819bfc9ce084dfa9&type=3#Gradient Vertical (Color)");
+    background-image: url("project://database/Assets/Space_Exploration_GUI_Kit/Button_Images/Source_Image_Sprites/medium/extra-long-pink-medium.png?fileID=2800000&guid=3458579a976f1fd469810e16fe8f2550&type=3#extra-long-pink-medium");
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/TASAExplorer-VariableFont_wght.ttf?fileID=12800000&guid=3d6e82f35781b4e4f8e500fb6ffebee8&type=3#TASAExplorer-VariableFont_wght");
 }
 
@@ -19,8 +20,13 @@
 }
 
 .dropdown {
-    color: rgb(255, 255, 255);
-    font-size: 25px;
-    background-image: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Textures/Gradient%20Diagonal%20(Color).jpg?fileID=2800000&guid=2ce5c55e85304b819a1826ecbc839aa5&type=3#Gradient Diagonal (Color)");
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    background-image: url("project://database/Assets/Space_Exploration_GUI_Kit/Button_Images/Highlighted_Sprite/extra%20large/extra-long-purple-highlight-extra-large.png?fileID=2800000&guid=d7867fb5033ff544da453535f6063936&type=3#extra-long-purple-highlight-extra-large");
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/TASAExplorer-VariableFont_wght.ttf?fileID=12800000&guid=3d6e82f35781b4e4f8e500fb6ffebee8&type=3#TASAExplorer-VariableFont_wght");
+    width: auto;
+    height: 60px;
+    -unity-text-align: upper-center;
+    margin-left: 0;
+    padding-left: 25px;
 }
